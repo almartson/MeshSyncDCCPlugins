@@ -198,6 +198,13 @@ void setup(py::object bpy_context)
                 }
             }
         }
+        else if (match_type("wmOperatorType")) {
+            for (auto* func : list_range((FunctionRNA*)type->functions.first)) {
+                if (strcmp(func->identifier, "invoke") == 0) {
+                    auto x = 3;
+                }
+            }
+        }
     }
 #undef each_iprop
 #undef each_nprop

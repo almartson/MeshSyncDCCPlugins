@@ -69,6 +69,36 @@ class MESHSYNC_PT_Scene(MESHSYNC_PT, bpy.types.Panel):
             layout.operator("meshsync.auto_sync", text="Auto Sync", icon="PLAY")
         layout.operator("meshsync.send_objects", text="Manual Sync")
 
+class MESHSYNC_PT_MaterialBake(MESHSYNC_PT, bpy.types.Panel):
+    bl_label = "Bake Materials"
+    bl_parent_id = "MESHSYNC_PT_Main"
+    
+    def draw(self, context):
+        scene = bpy.context.scene
+        layout = self.layout
+        layout.operator("meshsync.dothing", text="Do Thing")
+        
+
+class MESHSYNC_PT_DoThing(bpy.types.Operator):
+    bl_idname = "meshsync.dothing"        
+    bl_label = "Do the thing" 
+    
+    def execute(self, context): 
+        scene = context.scene
+        
+        bpy.data.scenes[scene.name].render.engine = "CYCLES"
+        
+        # scene.cycles.samples = context.scene.samplesColor
+        # scene.render.bake.use_pass_direct = False
+        # scene.render.bake.use_pass_indirect = False
+        # scene.render.bake.use_pass_color = True
+        # bpy.ops.object.bake(type='DIFFUSE', use_clear=True, use_selected_to_active=True)
+        # bakeimage.filepath_raw = context.scene.bakeFolder+context.scene.bakePrefix+context.scene.affixColor+".tga"
+        # bakeimage.file_format = 'TARGA'
+        # bakeimage.save()
+
+        return {'FINISHED'} 
+        
 
 class MESHSYNC_PT_Animation(MESHSYNC_PT, bpy.types.Panel):
     bl_label = "Animation"
@@ -272,6 +302,8 @@ classes = (
     MESHSYNC_PT_Main,
     MESHSYNC_PT_Server,
     MESHSYNC_PT_Scene,
+    MESHSYNC_PT_MaterialBake,
+    MESHSYNC_PT_DoThing,
     MESHSYNC_PT_Animation,
     MESHSYNC_PT_Cache,
     MESHSYNC_PT_Version,
